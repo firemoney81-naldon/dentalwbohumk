@@ -1,23 +1,465 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
+
+    <style>
+        /* 기본 레이아웃 및 폰트 설정 */
+        body { font-family: 'Malgun Gothic', '맑은 고딕', Dotum, AppleGothic, sans-serif; margin: 0; padding: 0; background-color: #f7f9fc; color: #333; line-height: 1.6; }
+        main { max-width: 1000px; margin: 30px auto; padding: 20px; background-color: #ffffff; border-radius: 12px; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08); }
+        h1, h2, h3 { color: #1f3d7a; margin-top: 0; font-weight: bold; }
+        h1 { font-size: 2.5em; text-align: center; color: #004d99; padding-bottom: 15px; border-bottom: 2px solid #e0eaf3; }
+        h2 { font-size: 2em; border-left: 6px solid #004d99; padding-left: 15px; margin-top: 40px; }
+        h3 { font-size: 1.5em; color: #0060c0; margin-top: 30px; border-bottom: 1px dashed #e0eaf3; padding-bottom: 5px; }
+
+        /* 섹션별 스타일링 */
+        section { margin-bottom: 50px; padding: 25px; border-radius: 10px; background-color: #fbfdff; border: 1px solid #e0eaf3; }
+        #section1 { background-color: #eaf3ff; border-left: 8px solid #004d99; }
+        #section2 { background-color: #f1f7e8; border-left: 8px solid #28a745; }
+        #section3 { background-color: #fff8eb; border-left: 8px solid #ff9800; }
+        #section4 { background-color: #ffeaea; border-left: 8px solid #dc3545; }
+        #section5 { background-color: #f3f3f3; border-left: 8px solid #6c757d; }
+
+        /* 표 스타일링 */
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 0.95em; }
+        th, td { padding: 15px; text-align: center; border: 1px solid #e0eaf3; }
+        th { background-color: #004d99; color: white; font-weight: bold; }
+        tr:nth-child(even) { background-color: #f9f9f9; }
+
+        /* 리스트 및 강조 텍스트 */
+        ul { list-style: none; padding-left: 0; }
+        ul li { background-color: #ffffff; padding: 12px 20px; border-radius: 6px; margin-bottom: 8px; border-left: 4px solid #007bff; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); }
+        ul li strong { color: #004d99; }
+        p strong { color: #004d99; }
+        .emphasis { color: #dc3545; font-weight: bold; }
+
+        /* 내비게이션 및 CTA */
+        nav { background-color: #e0eaf3; padding: 15px 0; border-radius: 8px; margin-bottom: 30px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        nav ul { display: flex; justify-content: space-around; padding: 0; margin: 0; list-style: none; }
+        nav a { text-decoration: none; color: #004d99; font-weight: bold; font-size: 1.1em; padding: 10px 15px; transition: color 0.3s ease, background-color 0.3s ease; border-radius: 5px; }
+        nav a:hover { color: #ffffff; background-color: #004d99; }
+
+        .cta-button { background-color: #007bff; color: white; padding: 18px 35px; border: none; border-radius: 10px; font-size: 1.3em; font-weight: bold; cursor: pointer; transition: background-color 0.3s ease, transform 0.2s ease; display: block; width: fit-content; margin: 30px auto; text-align: center; text-decoration: none; box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3); }
+        .cta-button:hover { background-color: #0056b3; transform: scale(1.03); }
+
+        /* 입력 폼 스타일링 */
+        .comparison-form { background-color: #eaf3ff; padding: 30px; border-radius: 10px; margin-top: 30px; }
+        .comparison-form label { display: block; font-weight: bold; margin-bottom: 8px; color: #004d99; }
+        .comparison-form input[type="text"], .comparison-form input[type="number"], .comparison-form select { width: calc(100% - 22px); padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 5px; font-size: 1em; }
+        .comparison-form button { background-color: #28a745; color: white; padding: 15px 30px; border: none; border-radius: 8px; font-size: 1.1em; cursor: pointer; transition: background-color 0.3s ease; }
+        .comparison-form button:hover { background-color: #218838; }
+
+        /* 이미지 및 그래프 */
+        .image-container { text-align: center; margin: 30px 0; }
+        .image-container img { max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .caption { font-size: 0.9em; color: #6c757d; margin-top: 10px; }
+
+        /* footer */
+        footer { background-color: #343a40; color: #dee2e6; text-align: center; padding: 30px; font-size: 0.9em; }
+        footer a { color: #adb5bd; text-decoration: none; transition: color 0.3s ease; }
+        footer a:hover { color: #ffffff; }
+
+        /* 반응형 디자인 */
+        @media (max-width: 768px) {
+            h1 { font-size: 2em; }
+            h2 { font-size: 1.8em; }
+            nav ul { flex-direction: column; }
+            nav li { margin-bottom: 5px; }
+            nav a { padding: 8px 10px; font-size: 1em; }
+            main { margin: 15px; padding: 15px; }
+        }
+    </style>
+    <!-- JSON-LD Structured Data for SEO (Naver Snippet Optimization) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "name": "치아보험추천: 2026년 가입 가이드",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "item": {
+                    "@type": "Article",
+                    "url": "/",
+                    "name": "치아보험추천 2026년 최신 순위 및 가입 전략",
+                    "datePublished": "2026-01-15T00:00:00+09:00",
+                    "author": {
+                        "@type": "Person",
+                        "name": "치아보험추천 전문가",
+                        "url": "/"
+                    },
+                    "headline": "2026년 치아보험, 이것만 알면 후회 없다! 가입 순위 및 보장 분석"
+                }
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "item": {
+                    "@type": "Article",
+                    "url": "/",
+                    "name": "임플란트 비용, 치아보험으로 절약하기: 보장 범위와 한도 심층 분석",
+                    "datePublished": "2026-01-14T00:00:00+09:00",
+                    "author": {
+                        "@type": "Person",
+                        "name": "치아보험추천 전문가",
+                        "url": "/"
+                    },
+                    "headline": "치아보험 임플란트 보장 한도, 2026년 기준 꼼꼼하게 따져보기"
+                }
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "item": {
+                    "@type": "Article",
+                    "url": "/",
+                    "name": "치아보험 갱신형 vs 비갱신형 차이점 완벽 비교 가이드",
+                    "datePublished": "2026-01-13T00:00:00+09:00",
+                    "author": {
+                        "@type": "Person",
+                        "name": "치아보험추천 전문가",
+                        "url": "/"
+                    },
+                    "headline": "치아보험료 절약의 핵심! 갱신형과 비갱신형, 나에게 맞는 선택은?"
+                }
+            },
+            {
+                "@type": "ListItem",
+                "position": 4,
+                "item": {
+                    "@type": "Article",
+                    "url": "/",
+                    "name": "치아보험 면책기간 감액기간, 제대로 알고 가입해야 손해 안 본다!",
+                    "datePublished": "2026-01-12T00:00:00+09:00",
+                    "author": {
+                        "@type": "Person",
+                        "name": "치아보험추천 전문가",
+                        "url": "/"
+                    },
+                    "headline": "치아보험 가입 후 주의사항: 면책기간과 감액기간 2026년 최신 정보"
+                }
+            },
+            {
+                "@type": "ListItem",
+                "position": 5,
+                "item": {
+                    "@type": "Article",
+                    "url": "/",
+                    "name": "어린이 치아보험 추천 가이드: 가입시기와 보장 범위 총정리",
+                    "datePublished": "2026-01-11T00:00:00+09:00",
+                    "author": {
+                        "@type": "Person",
+                        "name": "치아보험추천 전문가",
+                        "url": "/"
+                    },
+                    "headline": "우리 아이 치아 건강 지키는 법! 어린이 치아보험 완벽 가이드"
+                }
+            }
+        ]
+    }
+    </script>
+</head>
+<body>
+
+    <header>
+        <div style="background-color: #f7f9fc; padding: 20px; text-align: center;">
+            <p style="color: #6c757d; font-size: 1.1em; margin-bottom: 5px;">2026년 최신 가이드</p>
+            <h1>치아보험추천: 보장 범위부터 보험료 절약 팁까지 완벽 분석</h1>
+            <p style="font-size: 1.2em; color: #495057;">나에게 맞는 치아보험 찾기, 이제 헤매지 마세요!</p>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#section1">치아보험 필요성</a></li>
+                <li><a href="#section2">보장 범위와 특약</a></li>
+                <li><a href="#section3">갱신형 vs 비갱신형</a></li>
+                <li><a href="#section4">보험료 절약 팁</a></li>
+                <li><a href="#section5">면책·감액기간 주의사항</a></li>
+                <li><a href="#section6">FAQ 및 가입 전략</a></li>
+            </ul>
+        </nav>
+    </header>
+
     <main>
-      <h1>Home page</h1>
+        <!-- Section 1: 치아보험의 기본 이해: 왜 필요한가? -->
+        <section id="section1">
+            <h2 style="color: #004d99;">1. 치아보험의 기본 이해: 왜 필요한가?</h2>
+            <p><strong>치아보험추천</strong>을 검색하는 대부분의 사람들이 공감하는 한 가지 사실은 바로 <strong>치과 치료비의 부담</strong>입니다. 치아 건강은 오복(五福) 중 하나라고 불릴 정도로 중요하지만, 건강보험 급여 항목이 제한적이라 충치 치료나 잇몸 질환 치료 비용은 물론, 임플란트, 크라운 같은 고액의 보철 치료는 환자 본인 부담이 매우 높습니다.</p>
+            <p>2026년에도 치과 비급여 항목의 진료비 상승세가 이어질 것으로 예상되면서, 치아보험은 더 이상 선택이 아닌 필수로 인식되고 있습니다. 치아보험은 국민건강보험이 보장하지 않는 비급여 항목의 치료비용을 보전해줌으로써, 환자분들이 경제적 걱정 없이 제때 치료를 받을 수 있도록 돕습니다. <span class="emphasis">치아보험 가입은 예상치 못한 목돈 지출을 막는 가장 효과적인 방법입니다.</span></p>
+
+            <h3>1.1. 치아보험이 보장하는 주요 치료 항목: 보존치료 vs. 보철치료</h3>
+            <p>치아보험은 크게 <strong>보존치료</strong>와 <strong>보철치료</strong>로 나뉘어 보장합니다. 이 두 가지를 정확히 이해하는 것이 치아보험 상품을 비교하는 첫걸음입니다.</p>
+            <ul style="list-style: none; padding-left: 0;">
+                <li style="border-left-color: #007bff; background-color: #f0f8ff;">
+                    <strong>① 보존치료 (자연 치아를 보존하는 치료):</strong>
+                    <p>충치 등으로 손상된 치아를 뽑지 않고 본래의 기능을 유지하기 위한 치료입니다. 주요 보존치료에는 <strong>충전치료(레진, 아말감, 인레이, 온레이 등)</strong>와 <strong>크라운 치료</strong>가 포함됩니다. <span style="font-size: 0.9em; color: #6c757d;">(일부 상품은 신경치료도 보장)</span></p>
+                </li>
+                <li style="border-left-color: #007bff; background-color: #f0f8ff;">
+                    <strong>② 보철치료 (상실된 치아를 대체하는 치료):</strong>
+                    <p>충치나 잇몸 질환으로 인해 치아를 발치한 후, 상실된 치아를 인공적인 보철물로 대체하여 치아의 기능과 심미성을 회복시키는 고액의 치료입니다. <strong>임플란트, 브릿지, 틀니</strong>가 대표적입니다. 치아보험의 핵심은 이 보철치료의 <strong>보장 개수와 금액 한도</strong>에 달려있습니다.</p>
+                </li>
+            </ul>
+
+            <h3 style="margin-top: 30px;">1.2. 2026년 치아보험 가입자 현황 및 시장 동향</h3>
+            <p>최근 몇 년간 치아보험 가입자 수는 꾸준히 증가하고 있습니다. 특히 고령화 사회로 접어들면서 임플란트 및 틀니 치료 수요가 폭발적으로 늘어나고 있습니다. 건강보험심사평가원의 2023년 자료에 따르면, 20세 이상 성인에서는 치은염 및 치주질환 환자 수가 가장 많으며, 65세 이상에서는 임플란트 및 틀니 시술 환자 비율이 높은 것으로 나타났습니다. 이처럼 연령대별로 주된 치과 질환이 다르기 때문에, <span class="emphasis">치아보험 가입 시에는 본인의 연령과 치아 상태를 고려한 맞춤형 보장이 필수적입니다.</span></p>
+        </section>
+
+        <!-- Section 2: 치아보험 보장 범위와 특약: 임플란트 vs. 레진 -->
+        <section id="section2">
+            <h2 style="color: #28a745;">2. 치아보험 보장 범위 및 특약: 나에게 맞는 임플란트/레진 보장</h2>
+            <p>치아보험 상품별로 보장하는 치료의 종류와 횟수, 금액 한도가 상이하므로, 가입 전 꼼꼼한 비교가 필요합니다. 특히 고액의 <strong>임플란트 비용</strong>을 얼마나 보장받을 수 있는지가 중요한 선택 기준이 됩니다.</p>
+
+            <h3>2.1. 핵심 보장 항목별 상세 분석</h3>
+            <div style="margin-top: 20px;">
+                <h4 style="color: #28a745;">임플란트 (가장 중요한 보철치료)</h4>
+                <p>임플란트는 상실된 치아를 대체하는 가장 효과적인 방법이지만, 치과마다 <strong>임플란트 가격</strong>이 천차만별이며, 비급여 항목으로 분류되어 환자 부담이 큽니다. 치아보험은 이 임플란트 비용을 보장해주지만, 상품에 따라 <strong>연간 보장 개수(횟수)에 제한</strong>이 있습니다. 일반적으로 1년에 3개, 평생 3개 등으로 제한되는 경우가 많습니다. <span class="emphasis">임플란트 보장 한도가 충분한지, 재시술 시에도 보장되는지 확인해야 합니다.</span></p>
+                <h4 style="color: #28a745;">레진 및 충전치료 (주요 보존치료)</h4>
+                <p>레진(광중합형 레진)은 충치 치료 시 치아색과 유사하여 심미성이 높고, 최근 12세 이하 영구치에 한해 건강보험이 적용되지만, 성인의 경우 비급여 항목으로 분류됩니다. 치아보험은 연간 보장 횟수에 제한이 있거나 없는 형태로 레진 치료비를 보장합니다. 충치나 치주질환으로 인한 치료 빈도가 높은 분들은 보존치료 보장이 충분한지 확인해야 합니다.</p>
+            </div>
+
+            <h3 style="margin-top: 30px;">2.2. 치과 치료별 국민건강보험 vs. 치아보험 보장 비교 (2026년 기준)</h3>
+            <p>치아보험의 효용성을 이해하기 위해 국민건강보험의 보장 범위와 비교해 보겠습니다. 국민건강보험은 만 65세 이상을 대상으로 임플란트 평생 2개, 틀니 7년에 1회 등을 보장하며, 19세 이상에게는 스케일링 연 1회, 12세 이하 영구치에 레진 충전 등을 보장합니다.</p>
+            <table style="margin-top: 20px;">
+                <thead>
+                    <tr>
+                        <th style="background-color: #28a745;">치료 항목</th>
+                        <th style="background-color: #28a745;">국민건강보험 (급여 항목)</th>
+                        <th style="background-color: #28a745;">치아보험 (비급여 보장)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>스케일링</strong></td>
+                        <td>만 19세 이상 연 1회 급여 적용</td>
+                        <td>상품에 따라 특약으로 보장 가능 (횟수 제한)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>레진 충전</strong></td>
+                        <td>만 12세 이하 영구치 급여 적용</td>
+                        <td>만 12세 초과 영구치 보장 (횟수 제한)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>임플란트</strong></td>
+                        <td>만 65세 이상 평생 2개 급여 적용 (본인부담 30%)</td>
+                        <td>나이 제한 없이 보장 (연간 개수 제한, 보장금액 상이)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>크라운</strong></td>
+                        <td>일부 경우 외 비급여 항목</td>
+                        <td>보존치료 항목으로 보장 (연간 횟수 제한)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>잇몸치료 (치주질환)</strong></td>
+                        <td>일부 급여 적용</td>
+                        <td>상품에 따라 보장 범위 상이 (특약 확인 필요)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Section 3: 치아보험 상품 유형 분석: 갱신형 vs. 비갱신형 선택 전략 -->
+        <section id="section3">
+            <h2 style="color: #ff9800;">3. 치아보험 상품 유형 분석: 갱신형 vs. 비갱신형 선택 전략</h2>
+            <p>치아보험 가입 시 가장 중요한 결정 중 하나는 <strong>갱신형</strong>과 <strong>비갱신형</strong> 중 어떤 것을 선택할지입니다. 이는 <strong>치아보험료</strong>의 총액과 납입 방식에 결정적인 영향을 미칩니다.</p>
+
+            <h3>3.1. 갱신형 치아보험: 초기 보험료가 저렴한 장기 유지 전략</h3>
+            <p>갱신형 상품은 가입 초기 보험료가 저렴하여 단기적으로 보험료 부담이 적습니다. 하지만 일정 기간(갱신 주기, 보통 3년 또는 5년)마다 보험료가 재산정되어 갱신 시점에 나이 및 위험률 증가에 따라 보험료가 오를 수 있습니다. <span class="emphasis">갱신형은 젊은 연령층이 단기간 동안 보장을 받거나, 향후 치과 치료 계획이 있는 경우 유리합니다.</span></p>
+
+            <h3>3.2. 비갱신형 치아보험: 장기적인 보험료 안정성 확보 전략</h3>
+            <p>비갱신형 상품은 가입 시 보험료가 확정되어 납입 기간 동안 보험료 변동이 없습니다. 초기 보험료는 갱신형보다 높지만, 총 납입 기간이 정해져 있어 장기적으로 볼 때 갱신형보다 총액이 저렴할 수 있습니다. <span class="emphasis">비갱신형은 20대, 30대처럼 비교적 젊은 나이에 가입하여 10년, 20년 이상 장기간 안정적인 보장을 받고자 하는 분들에게 적합합니다.</span></p>
+
+            <h3>3.3. 갱신형 vs. 비갱신형 비교 가이드 (2026년 기준)</h3>
+            <div style="overflow-x: auto; margin-top: 20px;">
+                <table style="font-size: 0.9em;">
+                    <thead>
+                        <tr>
+                            <th style="background-color: #ff9800;">구분</th>
+                            <th style="background-color: #ff9800;">갱신형</th>
+                            <th style="background-color: #ff9800;">비갱신형</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>초기 보험료</strong></td>
+                            <td>저렴함</td>
+                            <td>갱신형보다 높음</td>
+                        </tr>
+                        <tr>
+                            <td><strong>보험료 변동</strong></td>
+                            <td>갱신 주기마다 인상 가능성 있음 (나이, 손해율 반영)</td>
+                            <td>납입 기간 내내 일정함</td>
+                        </tr>
+                        <tr>
+                            <td><strong>납입 기간</strong></td>
+                            <td>보장 기간 전체 (만기까지 납입)</td>
+                            <td>설정 기간 동안만 납입 (예: 10년납, 20년납)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>총 납입액 (장기)</strong></td>
+                            <td>장기간 유지 시 총액이 높을 수 있음</td>
+                            <td>장기간 유지 시 총액이 낮을 수 있음</td>
+                        </tr>
+                        <tr>
+                            <td><strong>추천 대상</strong></td>
+                            <td>단기간 고액 보장 필요자 (50~60대), 저렴한 초기 비용 선호자</td>
+                            <td>장기간 안정적 보장 필요자 (20~40대), 장기 재정 계획 선호자</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p style="margin-top: 25px;"><strong>선택 팁:</strong> 치아 건강은 나이가 들수록 악화되므로, 젊을 때 가입할수록 비갱신형이 유리합니다. 반면 50~60대 등 은퇴를 앞두고 집중적인 보장을 원한다면 갱신형을 선택하여 필요한 시기에 보장을 받는 것도 효과적인 전략입니다.</p>
+        </section>
+
+        <!-- Section 4: 치아보험료 절약을 위한 현명한 가입 전략 및 팁 -->
+        <section id="section4">
+            <h2 style="color: #ff9800;">4. 치아보험료 절약을 위한 현명한 가입 전략 및 팁</h2>
+            <p><strong>치아보험료</strong>는 가입 상품의 종류와 보장 범위, 가입자의 연령과 건강 상태 등에 따라 크게 달라집니다. 치아보험을 <strong>저렴한곳</strong>에서 <strong>가입</strong>하기 위해 반드시 고려해야 할 핵심 팁을 소개합니다.</p>
+
+            <h3>4.1. 다이렉트 치아보험 비교 및 가입</h3>
+            <p>오프라인 설계사를 통한 가입 대신 온라인 <strong>다이렉트 치아보험</strong>을 선택하면 중간 수수료가 절감되어 <strong>보험료</strong>를 약 10%~20% 절약할 수 있습니다. <strong>치아보험 비교</strong> 사이트나 각 보험사 다이렉트 홈페이지를 통해 여러 상품의 <strong>견적</strong>을 동시에 확인하는 것이 중요합니다.</p>
+
+            <h3>4.2. 보장 범위 맞춤 설정</h3>
+            <p>불필요한 보장을 줄이는 것이 가장 확실한 <strong>보험료 절약</strong> 방법입니다. 예를 들어, 보철치료(임플란트)에 대한 필요성을 느끼지 못한다면 보존치료(레진, 크라운) 중심의 상품을 선택하거나, 보장 한도를 낮추어 <strong>평균 금액</strong>보다 저렴하게 가입할 수 있습니다. 반대로 임플란트 보장이 중요하다면 보장 한도를 높이고 보존치료 한도를 줄이는 전략도 가능합니다.</p>
+
+            <h3>4.3. 순수보장형 vs. 만기환급형</h3>
+            <p>치아보험은 만기 시 납입 보험료를 돌려주는 <strong>만기환급형</strong>과 돌려주지 않는 <strong>순수보장형</strong>이 있습니다. 만기환급형은 보험료가 비싸고 환급금에 대한 이자 수익이 낮을 수 있으므로, 대부분의 전문가는 보험료가 저렴한 순수보장형을 <strong>추천</strong>합니다.</p>
+
+            <h3>4.4. 치아보험 가입 최적 시기</h3>
+            <p>치아보험은 가입 후 일정 기간(면책기간, 감액기간)이 지나야 보장받을 수 있습니다. 또한, 치과 치료가 필요한 시기가 가까워질수록 보험료가 높아지거나 가입이 거절될 수 있습니다. <span class="emphasis">치아에 문제가 생기기 전, 조금이라도 건강할 때 가입하는 것이 가장 유리한 <strong>가입 시기</strong>입니다.</span></p>
+
+            <!-- 사용자 체류 시간 증대를 위한 입력 폼 (Dwell Time optimization) -->
+            <div class="comparison-form" style="margin-top: 40px;">
+                <h3 style="color: #004d99; border-bottom: none;">나에게 맞는 치아보험 1분 견적 비교 (시뮬레이션)</h3>
+                <p>2026년 최신 기준으로 내 예상 <strong>치아보험 비용</strong>을 확인해 보세요. (실제 견적과 다를 수 있음)</p>
+                <form onsubmit="event.preventDefault(); calculateEstimate();">
+                    <label for="age">나이:</label>
+                    <input type="number" id="age" name="age" min="19" max="60" value="35" required>
+                    <label for="is_smoker">흡연 여부:</label>
+                    <select id="is_smoker" name="is_smoker">
+                        <option value="no">비흡연 (보험료 할인 가능성 높음)</option>
+                        <option value="yes">흡연</option>
+                    </select>
+                    <label for="teeth_status">최근 1년 내 치과 치료 여부:</label>
+                    <select id="teeth_status" name="teeth_status">
+                        <option value="healthy">치료 이력 없음</option>
+                        <option value="checked">정기 검진만 받음</option>
+                        <option value="treatment">치료 이력 있음 (고지 의무 발생)</option>
+                    </select>
+                    <label for="coverage_type">선호 보장 유형:</label>
+                    <select id="coverage_type" name="coverage_type">
+                        <option value="all">보존+보철(임플란트) 모두 중요</option>
+                        <option value="prosthetic">임플란트 등 보철치료 위주</option>
+                        <option value="preservation">레진 등 보존치료 위주</option>
+                    </select>
+                    <button type="submit" style="background-color: #ff9800;">예상 보험료 견적 확인하기</button>
+                    <p id="result_estimate" style="margin-top: 15px; font-weight: bold; color: #dc3545; font-size: 1.1em;"></p>
+                </form>
+            </div>
+        </section>
+
+        <!-- Section 5: 치아보험 가입 시 가장 중요한 주의사항: 면책기간과 감액기간 -->
+        <section id="section5">
+            <h2 style="color: #dc3545;">5. 치아보험 가입 시 가장 중요한 주의사항: 면책기간과 감액기간</h2>
+            <p><strong>치아보험</strong> 가입 후 보험금을 받지 못하는 가장 큰 이유는 바로 <strong>면책기간(면책기간)</strong>과 <strong>감액기간(감액기간)</strong>을 제대로 이해하지 못했기 때문입니다. <strong>금융감독원</strong>에서도 이 점을 소비자 유의사항으로 강조하고 있습니다.</p>
+
+            <h3>5.1. 면책기간: 보장받을 수 없는 기간 (가입 후 90일~180일)</h3>
+            <p>대부분의 치아보험 상품은 가입일로부터 <strong>90일(3개월) 또는 180일(6개월)</strong>의 면책기간을 두고 있습니다. 이 기간 동안 발생한 충치나 잇몸 질환은 보장받을 수 없습니다. 예를 들어, 가입 후 80일째 충치 진단을 받고 100일째 치료를 받아도 보험금 지급이 거절됩니다. <span class="emphasis">치아보험은 가입 즉시 보장이 되는 것이 아니라, 일정 기간을 기다려야 합니다.</span></p>
+
+            <h3>5.2. 감액기간: 보험금 50%만 지급되는 기간 (가입 후 1년~2년)</h3>
+            <p>면책기간이 끝난 후에는 <strong>감액기간</strong>이 적용됩니다. 감액기간은 보통 <strong>가입 후 1년 또는 2년</strong>이며, 이 기간 내에 치료받을 경우 원래 약정된 보험금의 <strong>50%만 지급</strong>받습니다. 1년 이후에 100% 보장을 받기 위해서는 이 감액기간이 종료되어야 합니다.</p>
+
+            <div class="image-container">
+                <img src="https://via.placeholder.com/800x400.png?text=치아보험+면책기간+감액기간+그래프+예시" alt="치아보험 보장 개시 시점 그래프">
+                <p class="caption"><em>[그림 1] 치아보험 면책기간 및 감액기간 예시 (가입 시 반드시 확인 필요)</em></p>
+            </div>
+
+            <h3>5.3. 고지의무 (치료 이력 고지) 및 기타 주의사항</h3>
+            <p>치아보험은 가입 시 고지의무가 있습니다. 최근 1년 내 치과 치료 여부, 5년 내 치주질환 치료 여부 등을 보험사에 정확하게 알려야 합니다. 만약 고지의무를 위반할 경우, 나중에 보험금 지급이 거절되거나 보험 계약이 해지될 수 있습니다. 특히 <span class="emphasis">이미 치료한 치아를 수리하거나 대체하는 경우는 보장되지 않습니다.</span></p>
+            <p><strong>참고:</strong> 건강보험공단에 따르면, 만 65세 이상 임플란트는 1인당 평생 2개까지 건강보험이 적용되므로, 치아보험 가입 시 고령층은 이 부분을 고려하여 보장 설정을 하는 것이 유리할 수 있습니다.</p>
+        </section>
+
+        <!-- Section 6: 치아보험 FAQ 및 가입 전략 (관련 키워드 포함) -->
+        <section id="section6">
+            <h2 style="color: #6c757d;">6. 치아보험 핵심 FAQ 및 가입 전략</h2>
+            <p>치아보험 가입자들이 가장 많이 궁금해하는 질문들을 모아 답변해 드립니다.</p>
+            <dl>
+                <dt style="font-weight: bold; color: #007bff; margin-top: 15px;">Q1: 현재 충치 치료 중인데, 치아보험 가입 가능한가요?</dt>
+                <dd style="margin-left: 20px;">A1: 현재 치료 중인 치아는 보장이 어렵습니다. 치아보험은 <span class="emphasis">치료가 끝난 후에 가입하거나, 치료 계획이 없는 건강한 상태에서 미리 가입</span>해야 합니다. 고지의무 위반 시 나중에 보험금 지급이 거절될 수 있습니다.</dd>
+
+                <dt style="font-weight: bold; color: #007bff; margin-top: 15px;">Q2: 임플란트 보장 한도는 어떻게 되나요?</dt>
+                <dd style="margin-left: 20px;">A2: 상품별로 다르지만, 대부분 연간 3개 또는 평생 3개 등으로 갯수 제한이 있습니다. 보험 가입 시 임플란트 개수와 금액 한도를 반드시 확인해야 합니다.</dd>
+
+                <dt style="font-weight: bold; color: #007bff; margin-top: 15px;">Q3: 치과 치료비가 비싼데, <strong>치아보험 평균 금액</strong>은 얼마인가요?</dt>
+                <dd style="margin-left: 20px;">A3: <strong>치아보험 가격</strong>은 연령, 성별, 보장 범위, 갱신 여부 등에 따라 크게 달라집니다. 30대 비갱신형 순수보장형 상품의 경우 <strong>예상 비용</strong>이 3~5만원대일 수 있습니다. 정확한 <strong>치아보험 견적</strong>을 위해서는 <strong>치아보험 비교</strong> 사이트에서 개인별로 계산해보는 것이 좋습니다.</dd>
+
+                <dt style="font-weight: bold; color: #007bff; margin-top: 15px;">Q4: <strong>어린이 치아보험</strong>은 언제 가입하는 것이 좋은가요?</dt>
+                <dd style="margin-left: 20px;">A4: 유치(젖니)와 영구치 전환기인 5~10세경에 가입하는 것이 좋습니다. 유치 보장은 만기(보통 12세)까지 보장되며, 영구치는 보존치료(충전) 위주로 보장합니다. 충치 발생률이 높은 시기에 맞춰 가입하는 것이 현명합니다.</dd>
+
+                <dt style="font-weight: bold; color: #007bff; margin-top: 15px;">Q5: <strong>사랑니 발치</strong>나 <strong>치아 교정</strong>도 보장되나요?</dt>
+                <dd style="margin-left: 20px;">A5: <strong>사랑니 발치</strong>나 <strong>치열 교정</strong>을 목적으로 하는 치료는 일반적으로 보장에서 제외됩니다. 또한 미백 등 심미적인 목적으로 받는 치료도 보장 대상이 아닙니다. 약관의 '보상하지 않는 손해' 항목을 반드시 확인해야 합니다.</dd>
+            </dl>
+
+            <h3>6.1. 함께 많이 찾는 치아보험 관련 키워드</h3>
+            <p style="margin-top: 20px;">치아보험 가입을 고려할 때 함께 찾아보는 주요 키워드들입니다. 해당 키워드를 통해 더 많은 정보를 얻을 수 있습니다.</p>
+            <div style="column-count: 2; column-gap: 20px; font-size: 0.95em;">
+                <ul>
+                    <li><strong>치아보험 다이렉트</strong> (중개수수료 절감)</li>
+                    <li><strong>치아보험 내돈내산 후기</strong> (실제 가입자 경험)</li>
+                    <li><strong>치아보험 순위</strong> (여러 보험사 상품 비교)</li>
+                    <li><strong>치아보험 임플란트 갯수 제한</strong> (보장 한도)</li>
+                    <li><strong>치아보험 갱신형 단점</strong> (보험료 인상)</li>
+                    <li><strong>비갱신형 치아보험 장점</strong> (보험료 고정)</li>
+                    <li><strong>치아보험 비교 싼곳</strong> (저렴한 상품 찾기)</li>
+                    <li><strong>치아보험 20대 가격</strong> (젊은층 보험료)</li>
+                    <li><strong>치아보험 50대 추천</strong> (고령층 보장 강화)</li>
+                    <li><strong>치아보험 레진 보장 금액</strong> (보존치료 한도)</li>
+                    <li><strong>치아보험 틀니 보장</strong> (고령층 보장)</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- E-A-T 확보를 위한 외부 신뢰 소스 링크 -->
+        <div style="background-color: #fcfcfc; padding: 25px; border-radius: 10px; border: 1px dashed #ddd; margin-top: 40px;">
+            <h3 style="color: #495057;">신뢰할 수 있는 외부 정보 소스</h3>
+            <ul style="list-style: none; padding-left: 0;">
+                <li style="border: none; background: none;">- 금융감독원: <a href="http://www.fss.or.kr" target="_blank">보험 소비자 유의사항 및 민원 사례 확인</a></li>
+                <li style="border: none; background: none;">- 건강보험심사평가원: <a href="http://www.hira.or.kr" target="_blank">치과 치료 급여 기준 및 비급여 진료비 정보</a></li>
+                <li style="border: none; background: none;">- 국민건강보험공단: <a href="http://www.nhis.or.kr" target="_blank">치과 임플란트 및 틀니 급여 적용 기준</a></li>
+                <li style="border: none; background: none;">- 보험협회 공시실: <a href="http://www.ins.or.kr" target="_blank">치아보험 상품별 보장 내용 및 약관 비교</a></li>
+                <li style="border: none; background: none;">- 한국신용정보원: <a href="http://www.kcredit.or.kr" target="_blank">치아보험 가입자 수 추이 통계</a></li>
+            </ul>
+        </div>
+        
+        <!-- CTA Section -->
+        <a href="#section4" class="cta-button" style="text-decoration: none;">나에게 맞는 치아보험 보장 범위 확인하기 ➡️</a>
     </main>
-  </body>
-</html>
+
+    <!-- JavaScript for smooth scroll and form interaction -->
+    <script>
+        // Smooth scroll implementation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Simplified cost estimation simulation (for dwell time)
+        function calculateEstimate() {
+            const age = parseInt(document.getElementById('age').value);
+            const isSmoker = document.getElementById('is_smoker').value;
+            const teethStatus = document.getElementById('teeth_status').value;
+            const coverageType = document.getElementById('coverage_type').value;
+            let basePremium = 0;
+
+            if (age < 30) { basePremium = 30000; }
+            else if (age < 45) { basePremium = 40000; }
+            else { basePremium = 55000; }
+
+            if (isSmoker === 'yes') { basePremium += 5000; }
+            if (teethStatus === 'treatment') { basePremium += 8000; }
+            if (coverageType === 'prosthetic') { basePremium += 10000; }
+
+            document.getElementById('result_estimate').textContent = `예상 월 보험료: ${basePremium.toLocaleString()}원`;
+        }
+    </script>
+
+  
